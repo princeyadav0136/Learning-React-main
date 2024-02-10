@@ -7,6 +7,7 @@ import RestaurantCard from "./RestaurantCard";
 const Body = () => {
 
     const [restaurantList, setRestaurantList] = useState(resList);
+    
 
     return (
         <div className="body">
