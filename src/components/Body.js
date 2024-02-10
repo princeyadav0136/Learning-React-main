@@ -4,7 +4,7 @@ import Shimmer from "./Shimmer";
 
 const Body = () => {
   const [listOfRestaurant, setListOfRestaurant] = useState([]);
-  const [resList, setResList] = useState([]);
+  const [filteredList, setFilteredList] = useState([]);
   const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
@@ -16,15 +16,15 @@ const Body = () => {
       "https://www.swiggy.com/dapi/restaurants/list/v5?lat=26.7605545&lng=83.3731675&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
     );
     const jsonData = await data.json();
-    setResList(
+    setListOfRestaurant(
+      jsonData?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
+        ?.restaurants
+    );
+    setFilteredList(
       jsonData?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
         ?.restaurants
     );
   };
-
-  useEffect(() => {
-    setListOfRestaurant(resList);
-  }, [resList])
 
   return listOfRestaurant.length === 0 ? (
     <Shimmer />
@@ -36,9 +36,8 @@ const Body = () => {
             setSearchText(e.target.value)
           }}></input>
           <button onClick={() => {
-            const filteredData = resList.filter((res) => res.info.name.toLowerCase().includes(searchText.toLowerCase()))
-            setListOfRestaurant(filteredData)
-            
+            const filteredData = listOfRestaurant.filter((res) => res.info.name.toLowerCase().includes(searchText.toLowerCase()))
+            setFilteredList(filteredData)
           }}>Search</button>
         </div>
         <button
@@ -47,15 +46,15 @@ const Body = () => {
             const filteredData = listOfRestaurant.filter(
               (res) => res.info.avgRating > 4
             );
-            setListOfRestaurant(filteredData)
+            setFilteredList(filteredData)
           }}
         >
           Top Rated Restaurant
         </button>
       </div>
       <div className="res-container">
-        {listOfRestaurant.map((resData, index) => (
-          <RestaurantCard key={index} resData={resData} />
+        {filteredList.map((resData, index) => (
+          <RestaurantCard key={resData?.info?.id} resData={resData} />
         ))}
       </div>
     </div>
