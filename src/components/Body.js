@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
+import { Link } from "react-router-dom";
 
 const Body = () => {
   const [listOfRestaurant, setListOfRestaurant] = useState([]);
@@ -21,12 +22,12 @@ const Body = () => {
         ?.restaurants
     );
     setFilteredList(
-      jsonData?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
+      jsonData?.data?.cards[3]?.card?.card?.gridElements?.infoWithStyle
         ?.restaurants
     );
   };
 
-  return listOfRestaurant.length === 0 ? (
+  return listOfRestaurant?.length === 0 ? (
     <Shimmer />
   ) : (
     <div className="body">
@@ -36,14 +37,14 @@ const Body = () => {
             setSearchText(e.target.value)
           }}></input>
           <button onClick={() => {
-            const filteredData = listOfRestaurant.filter((res) => res.info.name.toLowerCase().includes(searchText.toLowerCase()))
+            const filteredData = listOfRestaurant?.filter((res) => res.info.name.toLowerCase().includes(searchText.toLowerCase()))
             setFilteredList(filteredData)
           }}>Search</button>
         </div>
         <button
           className="filter-btn"
           onClick={() => {
-            const filteredData = listOfRestaurant.filter(
+            const filteredData = listOfRestaurant?.filter(
               (res) => res.info.avgRating > 4
             );
             setFilteredList(filteredData)
@@ -53,8 +54,8 @@ const Body = () => {
         </button>
       </div>
       <div className="res-container">
-        {filteredList.map((resData, index) => (
-          <RestaurantCard key={resData?.info?.id} resData={resData} />
+        {filteredList?.map((resData) => (
+          <Link key={resData?.info?.id} to ={"/restaurants/" + resData?.info?.id} ><RestaurantCard  resData={resData} /></Link>
         ))}
       </div>
     </div>

@@ -1,5 +1,9 @@
 # Namaste React
 
+# Shortcut for create functional compnent
+
+- rafce enter
+
 # Parcel
 - Must Read Parcel.org
 - Dev Build
