@@ -22,11 +22,11 @@ const Body = () => {
         ?.restaurants
     );
     setFilteredList(
-      jsonData?.data?.cards[3]?.card?.card?.gridElements?.infoWithStyle
+      jsonData?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
         ?.restaurants
     );
   };
-
+  
   return listOfRestaurant?.length === 0 ? (
     <Shimmer />
   ) : (
