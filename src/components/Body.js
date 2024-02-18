@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 
 const Body = () => {
   const [listOfRestaurant, setListOfRestaurant] = useState([]);
@@ -15,7 +16,7 @@ const Body = () => {
 
   const fetchData = async () => {
     const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=26.7605545&lng=83.3731675&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.5695867&lng=77.3825185&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
     );
     const jsonData = await data.json();
     setListOfRestaurant(
@@ -33,6 +34,8 @@ const Body = () => {
   if(onlineStatus === false){
     return <h1>You are offline!! 😑</h1>
   }
+
+  const {loggedInUser, setUserName} = useContext(UserContext)
   
   return listOfRestaurant?.length === 0 ? (
     <Shimmer />
@@ -40,7 +43,7 @@ const Body = () => {
     <div className="body">
       <div className="flex">
         <div className="m-4 p-4 flex items-center">
-          <input type="text" className="mx-2 border border-solid border-black" value = {searchText} onChange={(e) => {
+          <input type="text" className="p-2 mx-2 border border-solid border-black" value = {searchText} onChange={(e) => {
             setSearchText(e.target.value)
           }}></input>
           <button className="px-4 bg-green-100 rounded-lg" onClick={() => {
@@ -60,6 +63,8 @@ const Body = () => {
         >
           Top Rated Restaurant
         </button>
+        <label className="px-2 text-xl">UserName: </label>
+        <input type="text" className="p-2 border border-black" value={loggedInUser} onChange={(e) => setUserName(e.target.value)}></input>
         </div>
       </div>
       <div className="flex flex-wrap">
