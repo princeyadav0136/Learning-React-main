@@ -34,3 +34,15 @@ import Component from "path"
 
 export const Component
 import { Component } from "path"
+
+# Two type of routing
+- Client Side
+- Server Side
+
+# Redux Toolkit
+- Install @reduxjs/toolkit and react-redux
+- Build our store
+- Connect store to our app
+- Slice
+- dispatch(action)
+- Selector
