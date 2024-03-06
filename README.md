@@ -46,3 +46,20 @@ import { Component } from "path"
 - Slice
 - dispatch(action)
 - Selector
+
+# Types of testing
+- Unit Testing
+- Integration Testing
+- End to End Testing
+
+# Setting up testing in our App
+- Install React Testing Library
+- Install Jest
+- Install Babel Dependencies
+- Configure Babel
+- Configure Parcel Config file to disable default babel transpilation
+- Jest configutation
+- Install Jsdom library
+- Install @babel/preset-react
+- Add @babel/preset-react into babel config
+- Install @testing-library/jest-dom
